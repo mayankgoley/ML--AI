@@ -18,6 +18,8 @@ def welcome():
 def index():
     return "This is the index page of the Flask application."
 
+# The following block checks if this script is being run directly.
+# If it is, it starts the Flask development server.
 if __name__ == '__main__':
     # If this script is run directly, start the Flask development server.
     app.run(debug=True)
