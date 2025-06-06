@@ -1,0 +1,14 @@
+<html>
+<head>
+    <title>Result</title>
+</head>
+<body>
+    <h2>Based on your marks you have scored {{ results }}</h2>
+
+    {% if results >= 30 %}
+    <h3>You have passed with marks {{ results }}</h3>
+    {% else %}
+    <h3>You have Failed with marks {{ results }}</h3>
+    {% endif %}
+</body>
+</html>

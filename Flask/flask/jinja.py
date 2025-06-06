@@ -9,7 +9,7 @@ There are multiple ways to read the data from the backend into the HTML page.
 3 - {% for %} - loops to iterate over lists or dictionaries
 4 - {#....#}  - comments"""
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)  # Create an instance of the Flask class
 
@@ -28,8 +28,8 @@ def index():
 def form():
     return render_template('forms.html')
 
-@app.route('/submit', methods = ['GET', 'POST'])
-def submit():
+@app.route('/submit_res', methods = ['GET', 'POST'])
+def submit_res():
     if request.method == 'POST':
         name = request.form['name']
         return f'Hello {name}'
@@ -59,6 +59,31 @@ def success_route(score):
     exp = {'score': score, 'result': res}
     
     return render_template('result1.html', results = exp)
+
+@app.route('/final_marks/<int:score>')
+def final_marks(score):
+    return render_template('result2.html', results=score)
+
+# Create dynamic URL with variable rules
+
+@app.route('/fail/<int:score>')
+def fail(score):
+    return render_template('result.html', results = score)
+
+
+@app.route('/submit', methods = ['GET', 'POST'])
+def submit():
+    total_score = 0
+    if request.method == 'POST':
+        Science = float(request.form['Science'])
+        Maths = float(request.form['Maths'])
+        Data_Science = float(request.form['Data_Science'])
+        C = float(request.form['C'])
+        total_score = (Science + Maths + Data_Science + C)/ 4
+        return redirect(url_for('final_marks', score = total_score))
+    return render_template('get_result.html')
+
+
     
 if __name__ == '__main__':
     app.run(debug=True)
