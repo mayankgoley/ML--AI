@@ -20,3 +20,11 @@ df = pd.DataFrame({
 # Display the Data Frame
 st.write("Here is the data frame")
 st.write(df)
+
+# Create a Line chart
+
+chart_data = pd.DataFrame(
+    np.random.randn(20, 3),columns=['a','b','c']
+)
+
+st.line_chart(chart_data)
